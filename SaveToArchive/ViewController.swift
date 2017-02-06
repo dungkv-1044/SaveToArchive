@@ -24,7 +24,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         if let person = person {
             navigationItem.title = person.name
             nameTextField.text = person.name
-            phoneTextField.text = "\(person.phone!)"
+            phoneTextField.text = person.phone
         }
         updateSaveButtonStatus()
     }
@@ -64,7 +64,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
         let name = nameTextField.text ?? ""
         let phone = phoneTextField.text ?? ""
-        person = Person(name: name, phone: Int(phone)!)
+        if (Int(phone) != nil) {
+            person = Person(name: name, phone: phone)
+        } else {
+            
+            os_log("Error", log: OSLog.default, type: .debug)
+        }
+        
     }
     
     //MARK: Private method

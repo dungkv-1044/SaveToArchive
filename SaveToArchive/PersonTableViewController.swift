@@ -17,12 +17,10 @@ class PersonTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.leftBarButtonItem = editButtonItem
-        loadSampleData()
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        if let savedData = loadArchiveData() {
+            persons += savedData
+        }
+      
     }
 
     override func didReceiveMemoryWarning() {
@@ -50,7 +48,7 @@ class PersonTableViewController: UITableViewController {
         }
         let person = persons[indexPath.row]
         cell.nameLabel.text = person.name
-        cell.phoneLabel.text = "\(person.phone!)"
+        cell.phoneLabel.text = person.phone
         return cell
     }
     
@@ -69,6 +67,7 @@ class PersonTableViewController: UITableViewController {
         if editingStyle == .delete {
             // Delete the row from the data source
             persons.remove(at: indexPath.row)
+            saveData()
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -118,12 +117,17 @@ class PersonTableViewController: UITableViewController {
     }
     
     //MARK: Private methods
-    private func loadSampleData(){
-        guard let sample1 = Person(name: "Dung", phone: 554) else {
-            fatalError("Unable to instantiate person1")
+    private func saveData() {
+        let isSuccessfullSave = NSKeyedArchiver.archiveRootObject(persons, toFile: Person.ArchiveURL.path)
+        if isSuccessfullSave {
+            os_log("Save success!", log: OSLog.default, type:.debug)
+            
+        } else {
+            os_log("Failed to save!", log: OSLog.default, type: .error)
         }
-        persons += [sample1]
+        
     }
+    
     /// Unwind
     @IBAction func unwindToPersonList(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.source as? ViewController, let person = sourceViewController.person {
@@ -136,10 +140,14 @@ class PersonTableViewController: UITableViewController {
                 persons.append(person)
                 tableView.insertRows(at: [newIndexPath], with: .automatic)
             }
+            saveData()
         }
+        
     }
 
-    
+    private func loadArchiveData() -> [Person]? {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Person.ArchiveURL.path) as? [Person]
+    }
     
     
     
