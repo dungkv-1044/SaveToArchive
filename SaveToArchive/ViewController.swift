@@ -56,6 +56,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
             fatalError("erorr")
         }
     }
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if (Int(phoneTextField.text!) != nil) {
+            return true
+        }
+        showAlert()
+        return false
+    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         guard let button = sender as? UIBarButtonItem, button === saveButton else {
@@ -64,12 +71,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
         let name = nameTextField.text ?? ""
         let phone = phoneTextField.text ?? ""
-        if (Int(phone) != nil) {
-            person = Person(name: name, phone: phone)
-        } else {
-            
-            os_log("Error", log: OSLog.default, type: .debug)
-        }
+        person = Person(name: name, phone: phone)
+       
         
     }
     
@@ -80,6 +83,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
         } else {
             saveButton.isEnabled = true
         }
+    }
+    private func showAlert() {
+        let alert = UIAlertController(title: "Error", message: "Phone number must be digits", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
