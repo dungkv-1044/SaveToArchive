@@ -13,6 +13,9 @@
 		3C29A6481E48289D0018CDCA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C29A6471E48289D0018CDCA /* Assets.xcassets */; };
 		3C29A64B1E48289D0018CDCA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C29A6491E48289D0018CDCA /* LaunchScreen.storyboard */; };
 		3C29A6561E48289D0018CDCA /* SaveToArchiveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C29A6551E48289D0018CDCA /* SaveToArchiveTests.swift */; };
+		3C29A6611E482B210018CDCA /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C29A6601E482B210018CDCA /* Person.swift */; };
+		3C29A6631E482F950018CDCA /* PersonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C29A6621E482F950018CDCA /* PersonTableViewCell.swift */; };
+		3C29A6671E4830210018CDCA /* PersonTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C29A6661E4830210018CDCA /* PersonTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +39,9 @@
 		3C29A6511E48289D0018CDCA /* SaveToArchiveTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SaveToArchiveTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C29A6551E48289D0018CDCA /* SaveToArchiveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveToArchiveTests.swift; sourceTree = "<group>"; };
 		3C29A6571E48289D0018CDCA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3C29A6601E482B210018CDCA /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		3C29A6621E482F950018CDCA /* PersonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonTableViewCell.swift; sourceTree = "<group>"; };
+		3C29A6661E4830210018CDCA /* PersonTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +89,9 @@
 				3C29A6471E48289D0018CDCA /* Assets.xcassets */,
 				3C29A6491E48289D0018CDCA /* LaunchScreen.storyboard */,
 				3C29A64C1E48289D0018CDCA /* Info.plist */,
+				3C29A6601E482B210018CDCA /* Person.swift */,
+				3C29A6621E482F950018CDCA /* PersonTableViewCell.swift */,
+				3C29A6661E4830210018CDCA /* PersonTableViewController.swift */,
 			);
 			path = SaveToArchive;
 			sourceTree = "<group>";
@@ -201,7 +210,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C29A6671E4830210018CDCA /* PersonTableViewController.swift in Sources */,
+				3C29A6611E482B210018CDCA /* Person.swift in Sources */,
 				3C29A6431E48289D0018CDCA /* ViewController.swift in Sources */,
+				3C29A6631E482F950018CDCA /* PersonTableViewCell.swift in Sources */,
 				3C29A6411E48289D0018CDCA /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -412,6 +424,7 @@
 				3C29A65C1E48289D0018CDCA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3C29A65D1E48289D0018CDCA /* Build configuration list for PBXNativeTarget "SaveToArchiveTests" */ = {
 			isa = XCConfigurationList;
@@ -420,6 +433,7 @@
 				3C29A65F1E48289D0018CDCA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
