@@ -44,6 +44,7 @@
                                 <connections>
                                     <outlet property="nameLabel" destination="UI5-ka-IG8" id="mqs-HE-1Ym"/>
                                     <outlet property="phoneLabel" destination="lQu-Xa-Zcy" id="fXn-eC-XEX"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="ShowDetail" id="mvF-UR-WYe"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -94,7 +95,11 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="New Person" id="K0h-cL-Q09">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="mye-CZ-B7S"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="mye-CZ-B7S">
+                            <connections>
+                                <action selector="cancel:" destination="BYZ-38-t0r" id="pp5-EK-Aqa"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="zjQ-qM-xfY">
                             <connections>
                                 <segue destination="zdg-OQ-TSe" kind="unwind" unwindAction="unwindToPersonListWithSender:" id="CIc-sB-FsW"/>
@@ -146,7 +151,10 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fzf-h4-sNr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1344.8" y="103.89805097451276"/>
+            <point key="canvasLocation" x="1305" y="509"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="mvF-UR-WYe"/>
+    </inferredMetricsTieBreakers>
 </document>

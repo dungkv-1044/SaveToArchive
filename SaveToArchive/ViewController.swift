@@ -19,8 +19,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
     var person: Person?
     override func viewDidLoad() {
         super.viewDidLoad()
-      nameTextField.delegate = self
+        nameTextField.delegate = self
         phoneTextField.delegate = self
+        if let person = person {
+            navigationItem.title = person.name
+            nameTextField.text = person.name
+            phoneTextField.text = "\(person.phone!)"
+        }
+        updateSaveButtonStatus()
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,22 +35,27 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     //UITextFieldDelegate
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        if (nameTextField.text?.isEmpty)! || (phoneTextField.text?.isEmpty)! {
-            saveButton.isEnabled = false
-        } else {
-            saveButton.isEnabled = true
-        }
+        updateSaveButtonStatus()
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+       updateSaveButtonStatus()
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if (nameTextField.text?.isEmpty)! || (phoneTextField.text?.isEmpty)! {
-            saveButton.isEnabled = false
-        } else {
-            saveButton.isEnabled = true
-            textField.resignFirstResponder()
-        }
+        textField.resignFirstResponder()
         return true
     }
     //MARK: Navigation
+   
+    @IBAction func cancel(_ sender: UIBarButtonItem) {
+        let isPresentingInAddPersonMode = presentingViewController is UINavigationController
+        if isPresentingInAddPersonMode {
+            dismiss(animated: true, completion: nil)
+        } else if let ownigNavigationController = navigationController {
+            ownigNavigationController.popViewController(animated: true)
+        } else {
+            fatalError("erorr")
+        }
+    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         guard let button = sender as? UIBarButtonItem, button === saveButton else {
@@ -54,6 +65,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
         let name = nameTextField.text ?? ""
         let phone = phoneTextField.text ?? ""
         person = Person(name: name, phone: Int(phone)!)
+    }
+    
+    //MARK: Private method
+    private func updateSaveButtonStatus() {
+        if (nameTextField.text?.isEmpty)! || (phoneTextField.text?.isEmpty)! {
+            saveButton.isEnabled = false
+        } else {
+            saveButton.isEnabled = true
+        }
     }
 }
 

@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import os.log
+
 
 class PersonTableViewController: UITableViewController {
 
@@ -87,15 +89,32 @@ class PersonTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        super.prepare(for: segue, sender: sender)
+        switch (segue.identifier ?? "") {
+        case "AddPeople":
+            os_log("Adding a new person", log: OSLog.default, type: .debug)
+        case "ShowDetail":
+            guard let personDetailViewController = segue.destination as? ViewController else {
+                 fatalError("Unexpected destination: \(segue.destination)")
+            }
+            guard let selectedPersonCell = sender as? PersonTableViewCell else {
+                fatalError("Unexpected sender: \(sender)")
+            }
+            guard let indexPath = tableView.indexPath(for: selectedPersonCell) else {
+                fatalError("The selected cell is not being displayed by the table")
+            }
+            let selectedPerson = persons[indexPath.row]
+            personDetailViewController.person = selectedPerson
+        default:
+             fatalError("Unexpected Segue Identifier; \(segue.identifier)")
+        }
     }
-    */
+    
     //MARK: Private methods
     private func loadSampleData(){
         guard let sample1 = Person(name: "Dung", phone: 554) else {
@@ -106,9 +125,15 @@ class PersonTableViewController: UITableViewController {
     /// Unwind
     @IBAction func unwindToPersonList(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.source as? ViewController, let person = sourceViewController.person {
-            let newIndexPath = IndexPath(row: persons.count, section: 0)
-            persons.append(person)
-            tableView.insertRows(at: [newIndexPath], with: .automatic)
+            if let selectedIndexPath = tableView.indexPathForSelectedRow {
+                //update
+                persons[selectedIndexPath.row] = person
+                tableView.reloadRows(at: [selectedIndexPath], with: .none)
+            } else {
+                let newIndexPath = IndexPath(row: persons.count, section: 0)
+                persons.append(person)
+                tableView.insertRows(at: [newIndexPath], with: .automatic)
+            }
         }
     }
 
