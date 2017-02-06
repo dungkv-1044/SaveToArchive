@@ -103,5 +103,17 @@ class PersonTableViewController: UITableViewController {
         }
         persons += [sample1]
     }
+    /// Unwind
+    @IBAction func unwindToPersonList(sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.source as? ViewController, let person = sourceViewController.person {
+            let newIndexPath = IndexPath(row: persons.count, section: 0)
+            persons.append(person)
+            tableView.insertRows(at: [newIndexPath], with: .automatic)
+        }
+    }
 
+    
+    
+    
+    
 }
